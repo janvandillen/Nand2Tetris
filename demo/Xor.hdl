@@ -4,9 +4,12 @@
 // File name: projects/demo/Xor.hdl
 
 /**
- *  Exclusive-or gate: true if either a is true
- *  and b is false, or a is false and b is true;
- *  false otherwise.
+ *  Exclusive-or gate: true if either a is true and b is false, or
+ *  a is false and b is true; false otherwise.
+ *  QUESTION: how can the simulator execute this program properly without
+ *  HDL implementations of the underlying Not, And, and Or chip-parts?
+ *  Answer: since the demo folder contains no Not.hdl, And.hdl and Or.hdl
+ *  files, the simulator reverts to using their built-in implementations.
  */
 
 CHIP Xor {
