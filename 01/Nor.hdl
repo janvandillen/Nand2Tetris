@@ -1,0 +1,13 @@
+/**
+ * Negative-or gate:
+ * out = not (a or b)
+ */
+
+CHIP Nor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    Or(a=a, b=b, out=or);
+    Not(in=or, out=out);
+}
