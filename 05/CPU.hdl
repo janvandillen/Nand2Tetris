@@ -43,7 +43,7 @@ CHIP CPU {
     Mux16(a=false, b=instruction, sel=instruction[15], out[0]=JGT ,out[1]=JEQ ,out[2]=JLT ,out[3]=writeM ,out[4]=writeD ,out[5]=writeA ,out[6]=no ,out[7]=f ,out[8]=ny ,out[9]=zy ,out[10]=nx ,out[11]=zx ,out[12]=useM);
     Not(in=instruction[15], out=opA);
     Or(a=opA, b=writeA, out=loadA);
-    Register(in=AReg, load=loadA, out=ARegOut, out[0..14]=addressM);
+    ARegister(in=AReg, load=loadA, out=ARegOut, out[0..14]=addressM);
     DRegister(in=ALUOut, load=writeD, out=DRegister);
     Mux16(a=ARegOut, b=inM, sel=useM, out=y);
     ALU(x=DRegister, y=y, zx=zx, nx=nx, zy=zy, ny=ny, f=f, no=no, out=outM, out=ALUOut , zr=zr, ng=ng);
