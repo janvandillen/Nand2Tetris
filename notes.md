@@ -102,26 +102,26 @@ a value is set in the A-register
 
 it should start by `@` followed by a value between -16384 and 16383 or a variable. E.g.:
 
-* `@35`: set the A-register to 35
-* `@value`: set the A-register to the value of the variable
-* `@newvalue`: if the variable does not exist give it is given a new value between 16 and 255
-* `@LABEL`: if it is a label instead it wil use the number of the next command of the label
+- `@35`: set the A-register to 35
+- `@value`: set the A-register to the value of the variable
+- `@newvalue`: if the variable does not exist give it is given a new value between 16 and 255
+- `@LABEL`: if it is a label instead it wil use the number of the next command of the label
 
 ### c-operation
 
 the format goes as follow `[dest]=[comp];[jump]` both dest and jump can be omitted. in that case they are considered as `null`. E.g.:
 
-* `D=D+A`: increment D register with A
-* `D;JGT`: Jump if D-register is greater then 0;
-* `AD=D-1;JMP`: after setting the D and A register to `D-1` Jump
+- `D=D+A`: increment D register with A
+- `D;JGT`: Jump if D-register is greater then 0;
+- `AD=D-1;JMP`: after setting the D and A register to `D-1` Jump
 
 ### Symbols
 
 there are three types symbols
 
-* Labels: they link to a location in the code they are marked with parenthesis. `(LABEL)`
-* constants: they are fixed values specific to the cpu see table.
-* variable: those are the adresses for memory location 16 to 255
+- Labels: they link to a location in the code they are marked with parenthesis. `(LABEL)`
+- constants: they are fixed values specific to the cpu see table.
+- variable: those are the adresses for memory location 16 to 255
 
 | Label    | RAM     |
 | -------- | ------- |
@@ -138,8 +138,8 @@ there are three types symbols
 
 ### Arithmetic
 
-* y is at the top of stack
-* x is second from the top
+- y is at the top of stack
+- x is second from the top
 
 | Command | Return value | Return type |
 | ------- | ------------ | ----------- |
@@ -155,10 +155,10 @@ there are three types symbols
 
 #### add/sub/and/or
 
-* decrease pointer (`P`)
-* get value
-* get value from `P-1`
-* add both value and set it to `p-1`
+- decrease pointer (`P`)
+- get value
+- get value from `P-1`
+- add both value and set it to `p-1`
 
 ```assembly
 @SP
@@ -178,12 +178,12 @@ M=-M/m=!M
 
 #### eq/lt/gt
 
-* decrease pointer (`P`)
-* get value
-* get value from `P-1`
-* substract both value and jump if eq
-* if not equal set `P-1` to `0` and jump to end
-* if equal set `P-1` to `-1`
+- decrease pointer (`P`)
+- get value
+- get value from `P-1`
+- substract both value and jump if eq
+- if not equal set `P-1` to `0` and jump to end
+- if equal set `P-1` to `-1`
 
 V1: eq=10;neq=12
 
@@ -224,13 +224,28 @@ M=0
 (END)
 ```
 
+| code     | D   | A   | M     | SP  |
+| -------- | --- | --- | ----- | --- |
+| `@SP`    | ?   | 0   | 258   | 258 |
+| `AM=M-1` | ?   | 257 | B     | 257 |
+| `D=M`    | B   | 257 | B     | 257 |
+| `A=A-1`  | B   | 256 | A     | 257 |
+| `D=M-D`  | A-B | 256 | A     | 257 |
+| `M=-1`   | A-B | 256 | TRUE  | 257 |
+| `@END`   | A-B | END | ?     | 257 |
+| `D;JEQ`  | A-B | END | ?     | 257 |
+|          |
+| `@SP`    | X   | 0   | 257   | 257 |
+| `A=M-1`  | X   | 256 | TRUE  | 257 |
+| `M=0`    | X   | 256 | FALSE | 257 |
+
 ### Memory access
 
 #### Push
 
-* get value from memory
-* set value in stack
-* increment pointer
+- get value from memory
+- set value in stack
+- increment pointer
 
 ```assembly
 [get value]
@@ -242,9 +257,9 @@ M=D
 
 #### POP
 
-* decrement pointer
-* get value from stack
-* set value in memory
+- decrement pointer
+- get value from stack
+- set value in memory
 
 ```assembly
 @SP
