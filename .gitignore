@@ -1,2 +1,6 @@
 *.out
 *.hack
+.vscode
+Tools/**/*.vm
+Tools/**/*.asm
+Tools/**/*.hack
