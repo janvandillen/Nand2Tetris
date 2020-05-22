@@ -23,6 +23,9 @@ Get-ChildItem -Path $PSScriptRoot -Filter *.vm -Recurse | ForEach-Object {
                 "cmd" {$command = $command.($words[$i])}
                 "val" {$commandlist += $command.cmd -replace "#", $words[$i] ; $stop = $false}
                 "stop" {$commandlist += $command.cmd ; $stop = $false}
+                "jmp" {$commandlist += $command.cmd -replace "#", ("END" + $commandlist.Length) ; $stop = $false}
+                "temp" {$commandlist += $command.cmd -replace "#", ([int]($words[$i])+5) ; $stop = $false}
+                "point" {$commandlist += $command.cmd -replace "#", ([int]($words[$i])+2) ; $stop = $false}
                 Default {Write-Error -Message "no command" -ErrorAction Stop}
             }
             $i ++;
