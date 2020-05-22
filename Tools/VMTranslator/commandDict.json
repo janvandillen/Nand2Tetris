@@ -214,7 +214,7 @@
                 "M=D"
             ]
         },
-        "pointer ": {
+        "pointer": {
             "next": "point",
             "cmd":[
                 "// push pointer [#-3]",
@@ -326,7 +326,7 @@
         "pointer": {
             "next": "point",
             "cmd":[
-                "// pop pointer [#-2]",
+                "// pop pointer [#-3]",
                 "@SP",
                 "AM=M-1",
                 "D=M",
