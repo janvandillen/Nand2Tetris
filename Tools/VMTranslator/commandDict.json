@@ -1,0 +1,338 @@
+{
+    "next": "cmd",
+    "add": {
+        "next": "stop",
+        "cmd": [
+            "// add",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "A=A-1",
+            "M=D+M"
+        ]
+    },
+    "sub": {
+        "next": "stop",
+        "cmd": [
+            "// sub",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "A=A-1",
+            "M=M-D"
+        ]
+    },
+    "and": {
+        "next": "stop",
+        "cmd": [
+            "// and",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "A=A-1",
+            "M=D&M"
+        ]
+    },
+    "or": {
+        "next": "stop",
+        "cmd": [
+            "// or",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "A=A-1",
+            "M=D|M"
+        ]
+    },
+    "neg": {
+        "next": "stop",
+        "cmd": [
+            "// neg",
+            "@SP",
+            "A=M-1",
+            "M=-M"
+        ]
+    },
+    "not": {
+        "next": "stop",
+        "cmd": [
+            "// not",
+            "@SP",
+            "A=M-1",
+            "M=!M"
+        ]
+    },
+    "eq": {
+        "next": "jmp",
+        "cmd": [
+            "// eq",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "A=A-1",
+            "D=M-D",
+            "M=-1",
+            "@#",
+            "D;JEQ",
+            "@SP",
+            "A=M-1",
+            "M=0",
+            "(#)"
+        ]
+    },
+    "lt": {
+        "next": "jmp",
+        "cmd": [
+            "// lt",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "A=A-1",
+            "D=M-D",
+            "M=-1",
+            "@#",
+            "D;JLT",
+            "@SP",
+            "A=M-1",
+            "M=0",
+            "(#)"
+        ]
+    },
+    "gt": {
+        "next": "jmp",
+        "cmd": [
+            "// gt",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "A=A-1",
+            "D=M-D",
+            "M=-1",
+            "@#",
+            "D;JGT",
+            "@SP",
+            "A=M-1",
+            "M=0",
+            "(#)"
+        ]
+    },
+    "push": {
+        "next":"cmd",
+        "local": {
+            "next": "val",
+            "cmd":[
+                "// push local #",
+                "@LCL",
+                "D=M",
+                "@#",
+                "A=D+A",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        },
+        "argument": {
+            "next": "val",
+            "cmd":[
+                "// push argument #",
+                "@ARG",
+                "D=M",
+                "@#",
+                "A=D+A",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        },
+        "this": {
+            "next": "val",
+            "cmd":[
+                "// push this #",
+                "@THIS",
+                "D=M",
+                "@#",
+                "A=D+A",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        },
+        "that": {
+            "next": "val",
+            "cmd":[
+                "// push that #",
+                "@THAT",
+                "D=M",
+                "@#",
+                "A=D+A",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        },
+        "constant": {
+            "next": "val",
+            "cmd":[
+                "// push constant #",
+                "@#",
+                "D=A",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        },
+        "static": {
+            "next": "val",
+            "cmd":[
+                "// push static #",
+                "@Foo.#",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        },
+        "temp": {
+            "next": "temp",
+            "cmd":[
+                "// push temp [#-5]",
+                "@#",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        },
+        "pointer": {
+            "next": "point",
+            "cmd":[
+                "// push pointer [#-3]",
+                "@#",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"
+            ]
+        }
+    },
+    "pop": {
+        "next":"cmd",
+        "local": {
+            "next": "val",
+            "cmd":[
+                "// pop local #",
+                "@LCL",
+                "D=M",
+                "@#",
+                "D=D+A",
+                "@TEMP",
+                "M=D",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@TEMP",
+                "A=M",
+                "M=D"
+            ]
+        },
+        "argument": {
+            "next": "val",
+            "cmd":[
+                "// pop argument #",
+                "@ARG",
+                "D=M",
+                "@#",
+                "D=D+A",
+                "@TEMP",
+                "M=D",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@TEMP",
+                "A=M",
+                "M=D"
+            ]
+        },
+        "this": {
+            "next": "val",
+            "cmd":[
+                "// pop this #",
+                "@THIS",
+                "D=M",
+                "@#",
+                "D=D+A",
+                "@TEMP",
+                "M=D",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@TEMP",
+                "A=M",
+                "M=D"
+            ]
+        },
+        "that": {
+            "next": "val",
+            "cmd":[
+                "// pop that #",
+                "@THAT",
+                "D=M",
+                "@#",
+                "D=D+A",
+                "@TEMP",
+                "M=D",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@TEMP",
+                "A=M",
+                "M=D"
+            ]
+        },
+        "static": {
+            "next": "val",
+            "cmd":[
+                "// pop static #",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@Foo.#",
+                "M=D"
+            ]
+        },
+        "temp": {
+            "next": "temp",
+            "cmd":[
+                "// pop temp [#-5]",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@#",
+                "M=D"
+            ]
+        },
+        "pointer": {
+            "next": "point",
+            "cmd":[
+                "// pop pointer [#-3]",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@#",
+                "M=D"
+            ]
+        }
+    }
+}
